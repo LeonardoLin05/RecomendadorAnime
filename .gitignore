@@ -198,4 +198,9 @@ buildNumber.properties
 # Ignore all local history of files
 .history
 
+# JADE internal files
+APDescription.txt
+MTPs-Main-Container.txt
+Main-Container.txt
+
 # End of https://www.gitignore.io/api/java,maven,eclipse,intellij+all,visualstudiocode
