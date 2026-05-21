@@ -203,4 +203,7 @@ APDescription.txt
 MTPs-Main-Container.txt
 Main-Container.txt
 
+# --- ARCHIVOS DE CONFIGURACIÓN LOCAL (SECRETOS) ---
+.env
+
 # End of https://www.gitignore.io/api/java,maven,eclipse,intellij+all,visualstudiocode
