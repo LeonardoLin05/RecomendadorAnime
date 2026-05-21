@@ -1,8 +1,12 @@
 package es.upm.proyecto.jade.recomendador.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Image {
+public class Image implements Serializable {
+	
+	private static final long serialVersionUID = 8243570778973818472L;
 	
 	@JsonProperty("image_url")
 	private String imageUrl;

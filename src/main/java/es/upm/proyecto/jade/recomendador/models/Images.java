@@ -1,6 +1,10 @@
 package es.upm.proyecto.jade.recomendador.models;
 
-public class Images {
+import java.io.Serializable;
+
+public class Images implements Serializable {
+	
+	private static final long serialVersionUID = 5525569700260868414L;
 	
 	private Image jpg;
 	private Image webp;

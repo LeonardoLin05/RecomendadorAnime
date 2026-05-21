@@ -1,12 +1,15 @@
 package es.upm.proyecto.jade.recomendador.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Anime {
+public class Anime implements Serializable {
+	
+	private static final long serialVersionUID = -6642731941048641011L;
 	
 	@JsonProperty("mal_id")
 	private int id;
