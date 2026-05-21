@@ -35,6 +35,10 @@ public class Anime implements Serializable {
 	private List<NameItem> studios;
 	private List<NameItem> genres;
 	
+	private int heuristicScore;
+	
+	private String reviewSummary;
+	
 	public int getId() {
 		return id;
 	}
@@ -161,5 +165,21 @@ public class Anime implements Serializable {
 
 	public void setImages(Images images) {
 		this.images = images;
+	}
+
+	public int getHeuristicScore() {
+		return heuristicScore;
+	}
+
+	public void setHeuristicScore(int heuristicScore) {
+		this.heuristicScore = heuristicScore;
+	}
+
+	public String getReviewSummary() {
+		return reviewSummary;
+	}
+
+	public void setReviewSummary(String reviewSummary) {
+		this.reviewSummary = reviewSummary;
 	}
 }

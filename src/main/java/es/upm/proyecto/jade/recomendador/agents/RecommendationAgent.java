@@ -1,19 +1,20 @@
 package es.upm.proyecto.jade.recomendador.agents;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.upm.proyecto.jade.recomendador.behaviours.RecommendBehaviour;
 import es.upm.proyecto.jade.recomendador.models.AgentBase;
 import es.upm.proyecto.jade.recomendador.models.AgentModel;
 import es.upm.proyecto.jade.recomendador.models.Anime;
-import jade.core.AID;
-import jade.lang.acl.ACLMessage;
 import jade.wrapper.StaleProxyException;
 
 public class RecommendationAgent extends AgentBase {
@@ -57,14 +58,18 @@ public class RecommendationAgent extends AgentBase {
     		// Además de esto, en vez de hacer lo que hay abajo, se puede crear
     		// un nuevo agente encargado de realizar el analisis de los comentarios
     		// pasandole los 5 mejores animes obtenidos
-    		ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-    		AID receiver = new AID();
-    		receiver.setName(getAgentsDF(AgentModel.INTERFACE)[0].getName().getName());
-    		msg.addReceiver(receiver);
-    		msg.setConversationId("anime-request-recommend");
-			msg.setContentObject((Serializable) animesRecomendados);
-			send(msg);
-		} catch (IOException e) {
+    		ObjectMapper mapper = new ObjectMapper();
+    		
+    		List<Anime> top5 = animesRecomendados.stream()
+    		        .sorted(Comparator.comparingDouble(Anime::getHeuristicScore).reversed())
+    		        .limit(5)
+    		        .collect(Collectors.toList());
+    		
+    		Object[] params = {mapper.writeValueAsString(top5)};
+			getContainerController()
+			.createNewAgent("ReviewRecover", "es.upm.proyecto.jade.recomendador.agents.ReviewRecoverAgent", params)
+			.start();
+		} catch (StaleProxyException | JsonProcessingException e) {
 			e.printStackTrace();
 		}
 	}

@@ -26,15 +26,7 @@ public abstract class AgentBase extends Agent {
 	@Override
 	protected void setup() {
 		super.setup();
-		 Object[] args = getArguments();
-		 
-		if (args != null) {
-	        params = Arrays.stream(args)
-	                       .map(Object::toString)
-	                       .toArray(String[]::new);
-	    } else {
-	        params = new String[0];
-	    }
+		 this.params = Arrays.asList(getArguments()).toArray(new String[getArguments().length]);
 	}
 	
 	public DFAgentDescription[] getAgentsDF(AgentModel type) {

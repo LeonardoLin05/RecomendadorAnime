@@ -35,8 +35,8 @@ public class App {
 			
 			//Se crea el agente RMA
 			cc.createNewAgent("rma","jade.tools.rma.rma", new Object[0]).start();
+			cc.createNewAgent("UserInterface","es.upm.proyecto.jade.recomendador.agents.UIAgent", new Object[0]).start();
 			//Se crea el nuevo agente
-			cc.createNewAgent("UserInterface", "es.upm.proyecto.jade.recomendador.agents.UIAgent", new Object[]{"0"}).start();
 		} catch(StaleProxyException e) {
 			logger.error("Error during boot!!!");
 			e.printStackTrace();

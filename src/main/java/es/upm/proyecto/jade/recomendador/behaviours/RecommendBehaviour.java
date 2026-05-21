@@ -50,7 +50,7 @@ public class RecommendBehaviour extends SimpleBehaviour {
 				
 				// TODO: hacer los calculos heurísticos
 				
-				logger.info("Finished heuristic calculations...");
+				logger.info("Finished heuristic calculations");
 				
 				((RecommendationAgent) myAgent).concatenarAnimesRecomendados(animes);
 				
