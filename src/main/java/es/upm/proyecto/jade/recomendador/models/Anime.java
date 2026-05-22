@@ -21,6 +21,7 @@ public class Anime implements Serializable {
 	private String duration;
 	
 	private double score;
+	private double aiScore; 
 	@JsonProperty("scored_by")
 	private int scoredBy;
 	private int rank;
@@ -38,6 +39,7 @@ public class Anime implements Serializable {
 	private int heuristicScore;
 	
 	private String reviewSummary;
+	private String aiSummary; 
 	
 	public int getId() {
 		return id;
@@ -85,6 +87,14 @@ public class Anime implements Serializable {
 	
 	public void setScore(double score) {
 		this.score = score;
+	}
+	
+	public double getAiScore() {
+		return aiScore;
+	}
+	
+	public void setAiScore(double aiScore) {
+		this.aiScore = score;
 	}
 	
 	public int getScoredBy() {
@@ -182,4 +192,13 @@ public class Anime implements Serializable {
 	public void setReviewSummary(String reviewSummary) {
 		this.reviewSummary = reviewSummary;
 	}
+	
+	public String getAiSummary() {
+		return aiSummary;
+	}
+
+	public void setAiSummary(String aiSummary) {
+		this.aiSummary = aiSummary;
+	}
+
 }
