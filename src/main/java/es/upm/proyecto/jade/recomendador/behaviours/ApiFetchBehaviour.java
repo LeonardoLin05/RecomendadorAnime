@@ -30,11 +30,8 @@ public class ApiFetchBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		
-        String url = "https://api.jikan.moe/v4/anime?+"
-        		+ "genres=" + genreId 
-        		+ "&page=" + page
-        		+ "&order_by=score"
-        		+ "&sort=desc";
+        String url = buildUrl();
+		logger.info("Fetching URL: {}", url);
         
         new ApiFetch<Void>(myAgent) {
 
@@ -53,5 +50,17 @@ public class ApiFetchBehaviour extends OneShotBehaviour {
 			}
         	
 		}.fetch(url);
+	}
+
+	private String buildUrl(){
+		StringBuilder url = new StringBuilder("https://api.jikan.moe/v4/anime?");
+
+		//Busca los animes más famosos no los mejores
+		url.append("genres=").append(genreId);
+		url.append("&page=").append(page);
+		url.append("&order_by=members");
+		url.append("&sort=desc");
+
+		return url.toString();
 	}
 }

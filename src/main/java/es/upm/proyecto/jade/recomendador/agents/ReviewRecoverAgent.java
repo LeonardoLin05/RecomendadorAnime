@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+import es.upm.proyecto.jade.recomendador.models.UserPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,11 @@ public class ReviewRecoverAgent extends AgentBase {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			animes = mapper.readValue(getParams()[0], new TypeReference<List<Anime>>() {});
+			UserPreferences prefs = mapper.readValue(getParams()[1], UserPreferences.class);
+
 			SequentialBehaviour sequentialBehaviour = new SequentialBehaviour(this);
-			for(Anime anime : animes) {
-				sequentialBehaviour.addSubBehaviour(new ApiFetchReviewBehaviour(this, anime));
+			for (Anime anime : animes) {
+				sequentialBehaviour.addSubBehaviour(new ApiFetchReviewBehaviour(this, anime, prefs.getPersonalizado()));
 			}
 			sequentialBehaviour.addSubBehaviour(new OneShotBehaviour() {
 				

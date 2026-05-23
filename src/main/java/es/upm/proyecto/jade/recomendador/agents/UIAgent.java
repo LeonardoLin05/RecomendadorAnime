@@ -25,10 +25,23 @@ public class UIAgent extends AgentBase {
 		registerAgentDF();
 		
 		try {
-			// TODO: esto debe ejecutarse al empezar la busqueda de animes recomendados después de rellenar los campos de preferencias
-			// las preferencias meterlas en el array, por ahora esta puesta que el indice 0 sea el id del género, cambiar
-			// si fuese necesario la posición
-			Object[] preferences = {"2"};
+		// Jsons de prueba con campos a rellenar para probar la heurística
+			Object[] preferences = {
+					"{" +
+							"\"genre\": 1," +
+							"\"status\": \"complete\"," +
+							"\"type\": \"tv\"," +
+							"\"year_min\": 2010," +
+							"\"year_max\": 2015," +
+							"\"episodes_min\": 12," +
+							"\"episodes_max\": 50," +
+							"\"duration_min\": 20," +
+							"\"duration_max\": 30," +
+							"\"themes\": 0," +
+							"\"keywords\": [\"sword\", \"fantasy\"]," +
+							"\"personalizado\": []" +
+							"}"
+			};
 			getContainerController()
 			.createNewAgent("Recommender", "es.upm.proyecto.jade.recomendador.agents.RecommendationAgent", preferences)
 			.start();

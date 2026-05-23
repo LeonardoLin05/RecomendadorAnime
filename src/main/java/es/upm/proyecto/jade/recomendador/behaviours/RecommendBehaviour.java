@@ -2,6 +2,7 @@ package es.upm.proyecto.jade.recomendador.behaviours;
 
 import java.util.List;
 
+import es.upm.proyecto.jade.recomendador.models.UserPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +30,20 @@ public class RecommendBehaviour extends SimpleBehaviour {
     private ObjectMapper mapper = new ObjectMapper();
     
     private String[] preferencias = ((AgentBase) myAgent).getParams();
+
+	private HeuristicCalculator heuristicCalculator;
 	
     private int batch = 1;
     
 	public RecommendBehaviour(Agent agent) {
+
 		super(agent);
+		try{
+			UserPreferences preferences = new ObjectMapper().readValue(preferencias[0], UserPreferences.class);
+			this.heuristicCalculator = new HeuristicCalculator(preferences);
+		} catch (JsonProcessingException e){
+			logger.error("Error passing UserPreferences in ReccomendBehaviour", e);
+		}
 	}
 	
 	@Override
@@ -47,9 +57,7 @@ public class RecommendBehaviour extends SimpleBehaviour {
 				logger.info("Sended data retrieved successfully");
 				
 				logger.info("Starting heuristic calculations...");
-				
-				// TODO: hacer los calculos heurísticos
-				
+				heuristicCalculator.calcularScores(animes);
 				logger.info("Finished heuristic calculations");
 				
 				((RecommendationAgent) myAgent).concatenarAnimesRecomendados(animes);

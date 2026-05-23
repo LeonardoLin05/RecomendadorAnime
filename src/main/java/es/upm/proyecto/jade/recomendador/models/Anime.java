@@ -28,6 +28,7 @@ public class Anime implements Serializable {
 	private int popularity;
 	private int members;
 	private int favourites;
+	private String type;
 	
 	private String synopsis;
 	
@@ -35,6 +36,7 @@ public class Anime implements Serializable {
 	
 	private List<NameItem> studios;
 	private List<NameItem> genres;
+	private List<NameItem> themes;
 	
 	private int heuristicScore;
 	
@@ -201,4 +203,19 @@ public class Anime implements Serializable {
 		this.aiSummary = aiSummary;
 	}
 
+	public String getType(){
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public List<NameItem> getThemes(){
+		return themes;
+	}
+
+	public void setThemes(List<NameItem> themes){
+		this.themes = themes;
+	}
 }

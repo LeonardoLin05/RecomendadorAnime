@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import es.upm.proyecto.jade.recomendador.models.UserPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +40,17 @@ public class RecommendationAgent extends AgentBase {
 			String[] preferencias = getParams();
 			
 			// Guardamos el género para parsarselo al AnimeDataAgent
-			Object[] genreId = {preferencias[0]};
+			ObjectMapper mapper = new ObjectMapper();
+			UserPreferences prefs = mapper.readValue(preferencias[0], UserPreferences.class);
+			Object[] genreId = {String.valueOf(prefs.getGenre())};
+
 			logger.info("Creating AnimeDataAgent...");
 			getContainerController()
 				.createNewAgent("DataRecover", "es.upm.proyecto.jade.recomendador.agents.AnimeDataAgent", genreId)
 				.start();
 			
 			addBehaviour(new RecommendBehaviour(this));	
-		} catch (StaleProxyException e) {
+		} catch (StaleProxyException | JsonProcessingException e) {
 			logger.error("Error processing request", e);
 		}
 	}
@@ -64,8 +68,12 @@ public class RecommendationAgent extends AgentBase {
     		        .sorted(Comparator.comparingDouble(Anime::getHeuristicScore).reversed())
     		        .limit(5)
     		        .collect(Collectors.toList());
-    		
-    		Object[] params = {mapper.writeValueAsString(top5)};
+
+			Object[] params = {
+					mapper.writeValueAsString(top5),
+					getParams()[0]
+			};
+
 			getContainerController()
 			.createNewAgent("ReviewRecover", "es.upm.proyecto.jade.recomendador.agents.ReviewRecoverAgent", params)
 			.start();
