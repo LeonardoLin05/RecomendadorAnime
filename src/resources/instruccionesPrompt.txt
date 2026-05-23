@@ -67,7 +67,7 @@ Responde ESTRICTAMENTE con un objeto JSON con el siguiente formato (si no se han
   "year_max": Entero,
   "episodes_min": Entero,
   "episodes_max": Entero,
-  "duration_min": Enterol,
+  "duration_min": Entero,
   "duration_max": Entero,
   "themes": Entero,
   "keywords": ["keyword_en_ingles"],

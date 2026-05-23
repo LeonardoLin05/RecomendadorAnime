@@ -42,7 +42,7 @@ public class GroqService
         return null;
     }
     
-    private String cargarPromptSistema(String nombreFichero) 
+    public String cargarPromptSistema(String nombreFichero) 
     {
         try 
         {
@@ -110,7 +110,8 @@ public class GroqService
     public String generarResumenYNota(String reviews, List<String> personalizado) 
     {
         String promptSistema = cargarPromptSistema("instruccionesResumen.txt");
-        String mensajeUsuario = String.format("Preferencias del usuario: %s\n\nReviews del anime:\n%s",String.join(", ", personalizado),reviews);
+        String reviewsLimitadas = reviews.length() > 3000 ? reviews.substring(0, 3000) : reviews;
+        String mensajeUsuario = String.format("Preferencias del usuario: %s\n\nReviews del anime:\n%s",String.join(", ", personalizado),reviewsLimitadas);
         return llamarAGroq(promptSistema, mensajeUsuario);
     }
 }

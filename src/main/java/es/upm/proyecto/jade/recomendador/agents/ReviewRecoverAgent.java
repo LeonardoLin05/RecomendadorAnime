@@ -2,6 +2,8 @@ package es.upm.proyecto.jade.recomendador.agents;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import es.upm.proyecto.jade.recomendador.models.UserPreferences;
@@ -37,11 +39,22 @@ public class ReviewRecoverAgent extends AgentBase {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			animes = mapper.readValue(getParams()[0], new TypeReference<List<Anime>>() {});
-			UserPreferences prefs = mapper.readValue(getParams()[1], UserPreferences.class);
-
+	        
+			List<String> personalizado = new ArrayList<>();
+	        if (getParams().length > 1 && getParams()[1] != null) 
+	        {
+	            UserPreferences prefs = mapper.readValue(getParams()[1], UserPreferences.class);
+	            if (prefs.getPersonalizado() != null) 
+	            {
+	                personalizado = prefs.getPersonalizado();
+	            }
+	        }
+	        
+	        final List<String> personalizadoFinal = personalizado;
+	        
 			SequentialBehaviour sequentialBehaviour = new SequentialBehaviour(this);
 			for (Anime anime : animes) {
-				sequentialBehaviour.addSubBehaviour(new ApiFetchReviewBehaviour(this, anime, prefs.getPersonalizado()));
+				sequentialBehaviour.addSubBehaviour(new ApiFetchReviewBehaviour(this, anime, personalizadoFinal));
 			}
 			sequentialBehaviour.addSubBehaviour(new OneShotBehaviour() {
 				
@@ -49,6 +62,7 @@ public class ReviewRecoverAgent extends AgentBase {
 				public void action() {
 					logger.info("Finished retrieval of reviews");
 					try {
+						animes.sort(Comparator.comparingDouble(Anime::getAiScore).reversed());
 						ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 						AID receiver = new AID();
 						receiver.setName(getAgentsDF(AgentModel.INTERFACE)[0].getName().getName());
