@@ -12,14 +12,14 @@ public class HeuristicCalculator {
 
     private static final Logger logger = LoggerFactory.getLogger(HeuristicCalculator.class);
 
-    private static final int Max_score_points = 30;
-    private static final int Max_rank_points = 20;
-    private static final int Max_years_points = 15;
+    private static final int Max_score_points = 15;
+    private static final int Max_rank_points = 10;
+    private static final int Max_years_points = 10;
     private static final int Max_episodes_points = 10;
     private static final int Max_duration_points = 10;
     private static final int Max_status_points = 10;
-    private static final int Max_keyword_points = 15;
-    private static final int Max_themes_points = 10;
+    private static final int Max_keyword_points = 30;
+    private static final int Max_themes_points = 30;
 
     private static final int Min_votos = 1000;
 
@@ -50,8 +50,8 @@ public class HeuristicCalculator {
 
     //suma de todos los parámetros para obtener calificación total
     private int calcularScore(Anime anime) {
-        int total = 0;
-        total += scoreByMalScore(anime);
+    	int total = 0;
+		total += scoreByMalScore(anime);
         total += scoreByRank(anime);
         total += scoreByYear(anime);
         total += scoreByEpisodes(anime);
@@ -63,8 +63,8 @@ public class HeuristicCalculator {
     }
 
     private int scoreByThemes(Anime anime) {
-        int themeId = preferences.getThemes();
-        if(themeId <= 0){
+        List<Integer> themesId = preferences.getThemes();
+        if(themesId == null || themesId.isEmpty()){
             return Max_themes_points;
         }
 
@@ -73,14 +73,19 @@ public class HeuristicCalculator {
             return 0;
         }
 
-        boolean hayThemes = themes.stream().anyMatch(g -> g.getId() == themeId);
+        double pointsPerTheme = (double) Max_themes_points/themesId.size();
+        
+        int coincidencias = 0;
+        
+        for(int i = 0; i < themesId.size(); i++) {
+        	for(int j = 0; j < themes.size(); j++) {
+        		if(themesId.get(i).equals(themes.get(j).getId())) {
+        			coincidencias++;
+        		}
+        	}
+        }
 
-        if(hayThemes){
-            return Max_themes_points;
-        }
-        else{
-            return 0;
-        }
+        return (int) Math.round(pointsPerTheme * coincidencias);
     }
 
     private int scoreByKeywords(Anime anime) {
@@ -107,7 +112,7 @@ public class HeuristicCalculator {
                 encontrado++;
             }
         }
-        return Math.min(encontrado, 3) * 5;
+        return Math.min(encontrado, 3) * 10;
     }
 
     private int scoreByStatus(Anime anime) {

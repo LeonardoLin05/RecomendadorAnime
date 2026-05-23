@@ -63,8 +63,6 @@ public class ApiFetchReviewBehaviour extends OneShotBehaviour
 			}
 		}.fetch(url);
 		
-		anime.setReviewSummary(resultado);
-		
 		if (resultado != null && !resultado.isEmpty()) 
 		{
             logger.info("Llamando a Groq para generar resumen de {}", anime.getTitle());

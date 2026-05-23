@@ -11,7 +11,7 @@ Regla de asignación genérica para GÉNEROS y TEMAS:
 - Los campos 'genre' y 'themes' son COMPLETAMENTE INDEPENDIENTES. Una petición puede activar uno, ambos o ninguno.
 - Analiza la petición del usuario sin omitir información:
   1. Si detectas un concepto que encaja en la lista de GÉNEROS (ej: romance, drama, comedia, acción), asígnalo a 'genre'.
-  2. Si detectas un concepto que encaja en la lista de TEMAS (ej: escuela, militar, mecha, samuráis, videojuegos, espacio), asígnalo a 'themes'.
+  2. Si detectas un concepto que encaja en la lista de TEMAS (ej: escuela, militar, mecha, samuráis, videojuegos, espacio), asígnalo a 'themes', este puede tener un máximo de 4 temas.
 - ¡PROHIBIDO SACRIFICAR UN CAMPO POR OTRO! Si el usuario menciona elementos de ambos mundos (ej: "un anime de risa [Comedy] en el instituto [School]"), debes rellenar OBLIGATORIAMENTE tanto 'genre' (ID: 4) como 'themes' (ID: 23). 
 - Si un concepto puede encajar vagamente en ambos pero tienes dudas, rellena el campo que sea más específico y exacto según la petición del usuario.
 - Verificación estricta de IDs: Asegúrate de que los IDs correspondientes a GÉNEROS (como Action=1, Comedy=4, Horror=14) vayan estrictamente en el campo 'genre'. Los IDs de TEMAS (como Mecha=18, School=23, Military=38) deben ir estrictamente en el campo 'themes'. No los intercambies.
@@ -45,7 +45,7 @@ Para duration: (minutos por capítulo), vas a rellenar dos campos: 'duration_min
 - Si el usuario especifica un tiempo exacto en minutos (ej: "de menos de 10 minutos" o "de 20 min"): calcula el rango matemáticamente de forma estricta (ej: menos de 10 min -> 'duration_min': 1, 'duration_max': 10).
 - ¡PROHIBIDO ASUMIR! Si el usuario NO menciona nada sobre la duración de los capítulos en minutos ni usa palabras como "capítulos cortos/largos", debes poner OBLIGATORIAMENTE tanto 'duration_min' como 'duration_max' a null.
 
-Para keywords: Aquí meterás ÚNICAMENTE el nombre de un deporte, un vehículo o un objeto muy específico en inglés si y solo si el usuario lo menciona explícitamente y sirve para refinar el parámetro 'q' de la API (Ejemplo: "basketball", "soccer", "f1"). 
+Para keywords: Aquí meterás ÚNICAMENTE el nombre de un deporte, un vehículo, un objeto o u tema muy específico en inglés si y solo si el usuario lo menciona explícitamente y sirve para refinar el parámetro 'q' de la API (Ejemplo: "basketball", "soccer", "f1", "war", "devil"). 
 - REGLA DE LIMITACIÓN STRICTA: Este array solo puede contener como máximo 1 o 2 palabras. 
 - Todo debe ir obligatoriamente en inglés.
 - ¡PROHIBIDO METER TEMAS!: Si el concepto ya tiene un ID en la lista de géneros o temas (como vampiros, samuráis o mechas), NO lo metas aquí. Esto es solo para palabras clave que no tengan ID propio.
@@ -69,7 +69,7 @@ Responde ESTRICTAMENTE con un objeto JSON con el siguiente formato (si no se han
   "episodes_max": Entero,
   "duration_min": Entero,
   "duration_max": Entero,
-  "themes": Entero,
+  "themes": [Entero1, Entero2, "..."],
   "keywords": ["keyword_en_ingles"],
   "personalizado": ["filtro1", "filtro2", "..."]
 }

@@ -30,7 +30,7 @@ public class UserPreferences implements Serializable {
     @JsonProperty("duration_max")
     private Integer durationMax;
 
-    private int themes;
+    private List<Integer> themes;
     private List<String> keywords;
     private List<String> personalizado;
 
@@ -97,10 +97,10 @@ public class UserPreferences implements Serializable {
         this.durationMax = durationMax;
     }
 
-    public int getThemes(){
+    public List<Integer> getThemes(){
         return themes;
     }
-    public void setThemes(int themes){
+    public void setThemes(List<Integer> themes){
         this.themes = themes;
     }
 

@@ -34,13 +34,14 @@ public class Anime implements Serializable {
 	
 	private int year;
 	
+	private String relation;
+	
 	private List<NameItem> studios;
 	private List<NameItem> genres;
 	private List<NameItem> themes;
 	
 	private int heuristicScore;
 	
-	private String reviewSummary;
 	private String aiSummary; 
 	
 	public int getId() {
@@ -186,14 +187,6 @@ public class Anime implements Serializable {
 	public void setHeuristicScore(int heuristicScore) {
 		this.heuristicScore = heuristicScore;
 	}
-
-	public String getReviewSummary() {
-		return reviewSummary;
-	}
-
-	public void setReviewSummary(String reviewSummary) {
-		this.reviewSummary = reviewSummary;
-	}
 	
 	public String getAiSummary() {
 		return aiSummary;
@@ -217,5 +210,13 @@ public class Anime implements Serializable {
 
 	public void setThemes(List<NameItem> themes){
 		this.themes = themes;
+	}
+
+	public String getRelation() {
+		return relation;
+	}
+
+	public void setRelation(String relation) {
+		this.relation = relation;
 	}
 }

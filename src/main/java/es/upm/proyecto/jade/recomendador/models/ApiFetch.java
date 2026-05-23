@@ -39,7 +39,7 @@ public abstract class ApiFetch<T> {
 	        		return responseHandler(response.body().string());
 	        	}
 	        	// Por si estamos haciendo demasidas peticiones seguidas
-	        	else if (response.code() == 429) {
+	        	else if (response.code() == 429 || response.code() == 500) {
 	        		retry++;
 	                long waitTime = (long) Math.pow(2, retry) * 1000; // exponential backoff
 	
