@@ -105,14 +105,22 @@ public class HeuristicCalculator {
             sinopsis = anime.getSynopsis().toLowerCase();
         }
 
+        int puntosKeyword;
+        if(keywords.size() == 1){
+            puntosKeyword = 30;
+        }
+        else {
+            puntosKeyword = 15;
+        }
+
         int encontrado = 0;
-        for(String keyword : keywords){
+            for(String keyword : keywords){
             String keywordLower = keyword.toLowerCase();
             if(titulo.contains(keywordLower) || sinopsis.contains(keywordLower)){
                 encontrado++;
             }
         }
-        return encontrado > 0 ? Max_keyword_points : 0;
+        return Math.min(encontrado,2) * puntosKeyword;
     }
 
     private int scoreByStatus(Anime anime) {

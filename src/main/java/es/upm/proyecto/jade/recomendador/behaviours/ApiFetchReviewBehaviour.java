@@ -56,7 +56,6 @@ public class ApiFetchReviewBehaviour extends OneShotBehaviour
 	        		}
 	        		resultado = stringBuilder.toString();
 	        		logger.info("Reviews for {} retrieved successfully", anime.getTitle());
-	        		myAgent.doWait(3000);
 				} catch (JsonProcessingException e) {
 					e.printStackTrace();
 				}
