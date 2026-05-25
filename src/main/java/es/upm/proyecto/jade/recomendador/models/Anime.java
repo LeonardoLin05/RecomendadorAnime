@@ -33,6 +33,7 @@ public class Anime implements Serializable {
 	private String synopsis;
 	
 	private int year;
+	private Aired aired;
 	
 	private String relation;
 	
@@ -218,5 +219,13 @@ public class Anime implements Serializable {
 
 	public void setRelation(String relation) {
 		this.relation = relation;
+	}
+
+	public Aired getAired() {
+		return aired;
+	}
+
+	public void setAired(Aired aired) {
+		this.aired = aired;
 	}
 }

@@ -50,21 +50,23 @@ public class RecommendBehaviour extends SimpleBehaviour {
 		ACLMessage aclMessage = myAgent.receive(mt);
 		if(aclMessage != null) {
 			logger.info("INFORM from AnimeDataAgent received");
-			try {
-				logger.info("Retrieving sended data...");
-				List<Anime> animes = mapper.readValue(aclMessage.getContent(), AnimeByGenre.class).getData();
-				logger.info("Sended data retrieved successfully");
-				
-				logger.info("Starting heuristic calculations...");
-				heuristicCalculator.calcularScores(animes);
-				logger.info("Finished heuristic calculations");
-				
-				((RecommendationAgent) myAgent).concatenarAnimesRecomendados(animes);
-				
-				batch++;
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
+			if(!aclMessage.getContent().equals("")) {
+				try {
+					logger.info("Retrieving sended data...");
+					List<Anime> animes = mapper.readValue(aclMessage.getContent(), AnimeByGenre.class).getData();
+					logger.info("Sended data retrieved successfully");
+					
+					logger.info("Starting heuristic calculations...");
+					heuristicCalculator.calcularScores(animes);
+					logger.info("Finished heuristic calculations");
+					
+					((RecommendationAgent) myAgent).concatenarAnimesRecomendados(animes);
+					
+				} catch (JsonProcessingException e) {
+					logger.error("Error processing json");
+				}
 			}
+			batch++;
 		}
 		else {
 			logger.info("Waiting for INFORM from AnimeDataAgent..");

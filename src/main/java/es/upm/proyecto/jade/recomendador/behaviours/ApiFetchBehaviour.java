@@ -46,8 +46,19 @@ public class ApiFetchBehaviour extends OneShotBehaviour {
             	
             	logger.info("Sending animes to {}", receiverName);
             	myAgent.send(msg);
-            	myAgent.doWait(2000);
             	return null;
+			}
+			
+			@Override
+			public void maxRetriesHandler() {
+				ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+        		AID receiver = new AID();
+        		receiver.setName(receiverName);
+        		msg.addReceiver(receiver);
+            	msg.setContent("");
+            	
+            	logger.info("Sending no animes to {}", receiverName);
+            	myAgent.send(msg);
 			}
         	
 		}.fetch(url);

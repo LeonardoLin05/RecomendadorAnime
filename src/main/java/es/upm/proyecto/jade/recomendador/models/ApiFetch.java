@@ -15,7 +15,7 @@ public abstract class ApiFetch<T> {
 	private static final Logger logger = LoggerFactory.getLogger(ApiFetch.class);
 	
 	// Para realizar llamadas a la API
-	private static final OkHttpClient client = new OkHttpClient();
+	protected static final OkHttpClient client = new OkHttpClient();
 	
 	private Agent myAgent;
 	
@@ -57,7 +57,12 @@ public abstract class ApiFetch<T> {
 			}
 		}
         logger.error("Max retries reached");
+        maxRetriesHandler();
         return null;
+	}
+	
+	public void maxRetriesHandler() {
+		// Por si acaso quieres hace run handler de que ocurre al llegar al maximo de intentos
 	}
 	
 	public abstract T responseHandler(String json);
