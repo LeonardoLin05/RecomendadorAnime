@@ -27,5 +27,7 @@ mvn clean javafx:run
 
 ## Diagrama de la arquitectura
 
+<img width="1280" height="720" alt="Diagrama_arquitectura" src="https://github.com/user-attachments/assets/d27378cd-a1ae-4df6-aadb-3a63c86587d7" />
+
 ## Uso de IA
 Se hizo uso de IA para entender como hacer uso del entorno IntelliJ y depuración de errores.
