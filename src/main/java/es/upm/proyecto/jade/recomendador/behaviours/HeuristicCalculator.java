@@ -112,7 +112,7 @@ public class HeuristicCalculator {
                 encontrado++;
             }
         }
-        return Math.min(encontrado, 3) * 10;
+        return encontrado > 0 ? Max_keyword_points : 0;
     }
 
     private int scoreByStatus(Anime anime) {

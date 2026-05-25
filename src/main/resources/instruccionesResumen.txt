@@ -8,7 +8,7 @@ Tu tarea es:
 Responde ESTRICTAMENTE con un JSON como este, sin markdown, sin introducciones:
 {
   "nota_ia": 7.5,
-  "resumen": "Dos frases máximo valorando el anime, es decir, dar sus puntos buenos y luego haz una comparación según las preferencias del usuario."
+  "resumen": "Dos frases máximo valorando el anime, es decir, da un resumen de la opinión de los usuarios y luego haz una comparación según las preferencias del usuario."
 }
 
 Reglas para la nota_ia:

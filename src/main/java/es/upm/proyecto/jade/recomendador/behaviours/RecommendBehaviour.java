@@ -10,7 +10,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.upm.proyecto.jade.recomendador.agents.RecommendationAgent;
-import es.upm.proyecto.jade.recomendador.models.AgentBase;
 import es.upm.proyecto.jade.recomendador.models.Anime;
 import es.upm.proyecto.jade.recomendador.models.AnimeByGenre;
 import jade.core.Agent;
@@ -29,7 +28,7 @@ public class RecommendBehaviour extends SimpleBehaviour {
 	// Para transformar de JSON a objeto Java
     private ObjectMapper mapper = new ObjectMapper();
     
-    private String[] preferencias = ((AgentBase) myAgent).getParams();
+    private String preferencias = ((RecommendationAgent) myAgent).getPreferencias();
 
 	private HeuristicCalculator heuristicCalculator;
 	
@@ -39,7 +38,7 @@ public class RecommendBehaviour extends SimpleBehaviour {
 
 		super(agent);
 		try{
-			UserPreferences preferences = new ObjectMapper().readValue(preferencias[0], UserPreferences.class);
+			UserPreferences preferences = new ObjectMapper().readValue(preferencias, UserPreferences.class);
 			this.heuristicCalculator = new HeuristicCalculator(preferences);
 		} catch (JsonProcessingException e){
 			logger.error("Error passing UserPreferences in ReccomendBehaviour", e);
@@ -75,12 +74,6 @@ public class RecommendBehaviour extends SimpleBehaviour {
 	
 	@Override
 	public boolean done() {
-		return batch > 4;
-	}
-	
-	@Override
-	public int onEnd() {
-		myAgent.doDelete();
-		return super.onEnd();
+		return batch > 8;
 	}
 }

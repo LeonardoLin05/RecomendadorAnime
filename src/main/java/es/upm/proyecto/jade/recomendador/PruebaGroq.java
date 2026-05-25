@@ -25,7 +25,7 @@ public class PruebaGroq
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
 
         String instruccionesPrompt = cargarPromptSistema();
-        String peticionUsuarioPrompt = "Me apetece un anime de risa que vaya de un equipo de baloncesto de instituto, pero que ya esté terminado y que no sea viejo, mínimo de 2015, y que tenga un plot twist increible .";
+        String peticionUsuarioPrompt = "Quiero un anime de deportes, que contenga deportes de combate, en concreto boxeo, que sea alrededor de 2010, que el protagonista sea joven y tenga alrededor de 25 episodios.";
         		// "quiero ver una pelicula anime de soldados de la segudna guerra mundial que haya finalizado, que el protagonista sea un chico joven y sea toda una experencia dramataica, aparte que sea de antes de los 2000 y que los espisodios no duren mas de 30 minutos";
         JSONObject json = new JSONObject();
         json.put("model", modelo);

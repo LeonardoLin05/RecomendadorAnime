@@ -5,6 +5,7 @@ public enum AgentModel {
 	INTERFACE("UserInterface"),
 	RECOMMENDER("Recommender"),
 	DATA("DataRecover"),
+	REVIEWER("ReviewRecover"),
 	DESCONOCIDO("Desconocido");
 	
 	private final String value;
@@ -21,8 +22,10 @@ public enum AgentModel {
 		switch (value) {
 		case "UserInterface":
 			return INTERFACE;
-		case "Data":
+		case "DataRecover":
 			return DATA;
+		case "ReviewRecover":
+			return REVIEWER;
 		case "Recommender":
 			return RECOMMENDER;
 		default:

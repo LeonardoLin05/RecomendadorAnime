@@ -36,6 +36,9 @@ public class App {
 			//Se crea el agente RMA
 			cc.createNewAgent("rma","jade.tools.rma.rma", new Object[0]).start();
 			cc.createNewAgent("UserInterface","es.upm.proyecto.jade.recomendador.agents.UIAgent", new Object[0]).start();
+			cc.createNewAgent("Recommender","es.upm.proyecto.jade.recomendador.agents.RecommendationAgent", new Object[0]).start();
+			cc.createNewAgent("DataRecover","es.upm.proyecto.jade.recomendador.agents.AnimeDataAgent", new Object[0]).start();
+			cc.createNewAgent("ReviewRecover","es.upm.proyecto.jade.recomendador.agents.ReviewRecoverAgent", new Object[0]).start();
 			//Se crea el nuevo agente
 		} catch(StaleProxyException e) {
 			logger.error("Error during boot!!!");

@@ -46,6 +46,7 @@ public class ApiFetchBehaviour extends OneShotBehaviour {
             	
             	logger.info("Sending animes to {}", receiverName);
             	myAgent.send(msg);
+            	myAgent.doWait(2000);
             	return null;
 			}
         	
