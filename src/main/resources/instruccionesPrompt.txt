@@ -43,6 +43,7 @@ Para duration: (minutos por capítulo), vas a rellenar dos campos: 'duration_min
 - Si el usuario pide capítulos muy cortos ("cortometrajes", "capítulos rápidos", "de 5 minutos"): pon ('duration_min': 1, 'duration_max': 15).
 - Si el usuario pide una película o capítulos muy largos ("formato película", "capítulos largos", "de una hora"): pon ('duration_min': 40, 'duration_max': 180).
 - Si el usuario especifica un tiempo exacto en minutos (ej: "de menos de 10 minutos" o "de 20 min"): calcula el rango matemáticamente de forma estricta (ej: menos de 10 min -> 'duration_min': 1, 'duration_max': 10).
+- Si el usuario especificó que queria ver una pelicula y no mencionó nada acerca de la duración: pon ('duration_min': 90, 'duration_max': 150).
 - ¡PROHIBIDO ASUMIR! Si el usuario NO menciona nada sobre la duración de los capítulos en minutos ni usa palabras como "capítulos cortos/largos", debes poner OBLIGATORIAMENTE tanto 'duration_min' como 'duration_max' a null.
 
 Para keywords: Aquí meterás ÚNICAMENTE el nombre de un deporte, un vehículo, un objeto o u tema muy específico en inglés si y solo si el usuario lo menciona explícitamente y sirve para refinar el parámetro 'q' de la API (Ejemplo: "basketball", "soccer", "f1", "war", "devil"). 
@@ -50,7 +51,7 @@ Para keywords: Aquí meterás ÚNICAMENTE el nombre de un deporte, un vehículo,
 - Todo debe ir obligatoriamente en inglés.
 - ¡PROHIBIDO METER TEMAS!: Si el concepto ya tiene un ID en la lista de géneros o temas (como vampiros, samuráis o mechas), NO lo metas aquí. Esto es solo para palabras clave que no tengan ID propio.
 
-Para personalizado: Aquí meterás frases, opiniones, descripciones físicas o adjetivos puramente subjetivos que el usuario pida sobre la trama, los personajes o el desarrollo del anime.
+Para personalizado: Aquí meterás frases, opiniones, descripciones físicas o adjetivos puramente subjetivos que el usuario pida sobre la trama, los personajes o el desarrollo del anime. (No dejes este campo vacio nunca, si no hay suficiente información puedes meterle cosas que ya hayas encasillado antes como el genero o el tema) 
 - Ejemplos: "protagonista guapo", "sin final abierto", "giro de guion argumental", "animación espectacular".
 - Deja este array en español, ya que se utilizará internamente en Java para analizar y puntuar los comentarios y reviews de los usuarios.
 

@@ -65,17 +65,18 @@ public class ApiFetchReviewBehaviour extends OneShotBehaviour
 		
 		if (resultado != null && !resultado.isEmpty()) 
 		{
-            logger.info("Llamando a Groq para generar resumen de {}", anime.getTitle());
-            String respuestaGroq = groqService.generarResumenYNota(resultado, personalizado);
-
-            if (respuestaGroq != null) 
-            {
-            	JSONObject resultadoGroq = new JSONObject(respuestaGroq);
-            	anime.setAiScore(resultadoGroq.getDouble("nota_ia"));
-            	anime.setAiSummary(resultadoGroq.getString("resumen"));
-            	logger.info("Resumen y nota IA generados para {}: {}",anime.getTitle(), anime.getAiScore());
-            }
+			resultado = anime.getSynopsis();
+		}
 		
-		}	
+		logger.info("Llamando a Groq para generar resumen de {}", anime.getTitle());
+        String respuestaGroq = groqService.generarResumenYNota(resultado, personalizado);
+
+        if (respuestaGroq != null) 
+        {
+        	JSONObject resultadoGroq = new JSONObject(respuestaGroq);
+        	anime.setAiScore(resultadoGroq.getDouble("nota_ia"));
+        	anime.setAiSummary(resultadoGroq.getString("resumen"));
+        	logger.info("Resumen y nota IA generados para {}: {}",anime.getTitle(), anime.getAiScore());
+        }     
 	}
 }

@@ -16,3 +16,8 @@ Reglas para la nota_ia:
 - Sube la nota si el anime encaja bien con las preferencias del usuario.
 - Bájala si hay aspectos que contradicen claramente lo que busca el usuario.
 - Rango válido: 1.0 a 10.0
+
+En caso de que no te llegaran las reviews y solo la sinopsis del anime, genera el resumen unicamente (y se se pudiera relacionarlas con las preferencias mejor).
+
+Haz la valoración narrada para el propio usuario, no le digas directamente cosas como "esto encaja con las preferencias del usuario" dile que encaja con sus preferencias directamente. 
+

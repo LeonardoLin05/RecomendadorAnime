@@ -50,7 +50,7 @@ public class MainUI extends JFrame
         panel.add(Box.createVerticalStrut(12));
 
         // Subtítulo
-        JLabel subtitulo = new JLabel("¿Qué tipo de anime quieres ver hoy?");
+        JLabel subtitulo = new JLabel("¿Qué tipo de anime te gusta?");
         subtitulo.setFont(new Font("SansSerif", Font.PLAIN, 18));
         subtitulo.setForeground(Color.YELLOW);
         subtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -85,6 +85,7 @@ public class MainUI extends JFrame
             if (!texto.isEmpty() && !campo.getForeground().equals(Color.GRAY)) 
             {
             	 agent.lanzarBusqueda(texto);
+            	 pantallaLoading();
             }
         });
         campo.addActionListener(e -> btnBuscar.doClick());
@@ -92,6 +93,14 @@ public class MainUI extends JFrame
         barraPanel.add(campo);
         barraPanel.add(btnBuscar);
         panel.add(barraPanel);
+        
+        panel.add(Box.createVerticalStrut(10));
+        
+        JLabel textoEjemplo = new JLabel("Ej: me gustan las series de miedo acerca de vampiros y que sean de alrededor de los 2000");
+        textoEjemplo.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        textoEjemplo.setForeground(Color.GRAY);
+        textoEjemplo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(textoEjemplo);
 
         // Espacio inferior
         panel.add(Box.createVerticalGlue());
@@ -197,7 +206,9 @@ public class MainUI extends JFrame
         info.add(Box.createVerticalStrut(4));
         
         // Año y Episodios  
-        String year = String.valueOf(anime.getYear());
+        int yearInt = anime.getYear(); 
+        String year = String.valueOf(yearInt);
+        if(yearInt == 0) { year = anime.getAired().getProp().getFrom().getYear()+""; }
         String eps  = anime.getEpisodes() + " eps";
 
         JLabel metaLabel = new JLabel( "<html>" + year + " &nbsp;-&nbsp; " + eps + "</html>");
@@ -252,6 +263,28 @@ public class MainUI extends JFrame
     {
         getContentPane().removeAll();
         getContentPane().add(crearPantallaResultados(animes), BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+    
+    private void pantallaLoading() 
+    {
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLACK);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        
+        panel.add(Box.createVerticalGlue());
+        
+        JLabel loading = new JLabel("Loading...");
+        loading.setFont(new Font("SansSerif", Font.BOLD, 25));
+        loading.setForeground(Color.MAGENTA);
+        loading.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(loading);
+        
+        panel.add(Box.createVerticalGlue());
+
+        getContentPane().removeAll();
+        getContentPane().add(panel, BorderLayout.CENTER);
         revalidate();
         repaint();
     }
